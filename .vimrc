@@ -11,6 +11,9 @@ Plugin 'gmarik/Vundle.vim' " Vundle
 " Plugins
 Plugin 'nathanaelkane/vim-indent-guides' " vim indent guides
 Plugin 'scrooloose/syntastic' " syntax checker
+Plugin 'bling/vim-airline' " airplanes go zoom
+Plugin 'tpope/vim-fugitive' " git wrapper
+Plugin 'bling/vim-bufferline' " list buffers in command bar
 
 call vundle#end()
 filetype plugin indent on
@@ -23,6 +26,12 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
+
+" Airline Settings
+let g:airline_theme='luna'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+
 
 " alt+n or alt+p to navigate between entries in QuickFix
 map <silent> <m-p> :cp <cr>
