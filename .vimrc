@@ -1,0 +1,79 @@
+filetype on  " Automatically detect file types.
+set nocompatible  " no vi compatibility.
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle manage itself
+Plugin 'gmarik/Vundle.vim' " Vundle
+
+" Plugins
+Plugin 'nathanaelkane/vim-indent-guides' " vim indent guides
+Plugin 'scrooloose/syntastic' " syntax checker
+
+call vundle#end()
+filetype plugin indent on
+
+" Add recently accessed projects menu (project plugin)
+set viminfo^=\!
+
+" Minibuffer Explorer Settings
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
+" alt+n or alt+p to navigate between entries in QuickFix
+map <silent> <m-p> :cp <cr>
+map <silent> <m-n> :cn <cr>
+
+syntax enable
+
+set cf  " Enable error files & error jumping.
+set history=256  " Number of things to remember in history.
+set autowrite  " Writes on make/shell commands
+set ruler  " Ruler on
+set nu  " Line numbers on
+set wrap  " Line wrapping on
+set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
+set paste " Enable paste from clipboard
+
+" Formatting
+set ts=4  " Tabs are 4 spaces
+set bs=2  " Backspace over everything in insert mode
+set shiftwidth=4  " Tabs under smart indent
+set nocp incsearch
+set cinoptions=:0,p0,t0
+set cinwords=if,else,while,do,for,switch,case
+set formatoptions=tcqr
+set cindent
+set autoindent
+set smarttab
+set expandtab
+
+" Visual
+set showmatch  " Show matching brackets.
+set mat=5  " Bracket blinking.
+set lcs=tab:\ \ ,eol:$,trail:~,extends:>,precedes:<
+set novisualbell  " No blinking .
+set noerrorbells  " No noise.
+set laststatus=2  " Always show status line.
+set t_Co=16
+set background=dark
+colorscheme solarized
+" colorscheme molokai
+" colorscheme xoria256
+
+" set vim indent guides plugin settings
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=DarkGrey
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=DarkGrey
+let g:indent_guides_start_level = 2 " vim indent guides size
+let g:indent_guides_guide_size = 1 " vim indent guides size
+let g:indent_guides_enable_on_vim_startup = 1
+
+
+" gvim specific
+set mousehide  " Hide mouse after chars typed
+set mouse=a  " Mouse in all modesc
