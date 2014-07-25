@@ -33,7 +33,12 @@ let g:miniBufExplModSelTarget = 1
 let g:airline_theme='luna'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
-
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.branch = '⎇'
 
 " alt+n or alt+p to navigate between entries in QuickFix
 map <silent> <m-p> :cp <cr>
@@ -64,6 +69,7 @@ set smarttab
 set expandtab
 
 " Visual
+set encoding=utf-8
 set showmatch  " Show matching brackets.
 set mat=5  " Bracket blinking.
 set lcs=tab:\ \ ,eol:$,trail:~,extends:>,precedes:<
