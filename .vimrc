@@ -17,6 +17,7 @@ Plugin 'bling/vim-bufferline' " list buffers in command bar
 Plugin 'tpope/vim-surround' " surroundings
 Plugin 'AndrewRadev/splitjoin.vim' " splitjoin
 Plugin 'scrooloose/nerdtree' " file navigator
+Plugin 'altercation/vim-colors-solarized' " solarized colorscheme
 
 call vundle#end()
 filetype plugin indent on
