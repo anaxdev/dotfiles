@@ -18,6 +18,7 @@ Plugin 'tpope/vim-surround' " surroundings
 Plugin 'AndrewRadev/splitjoin.vim' " splitjoin
 Plugin 'scrooloose/nerdtree' " file navigator
 Plugin 'altercation/vim-colors-solarized' " solarized colorscheme
+Plugin 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
 
 call vundle#end()
 filetype plugin indent on
@@ -59,7 +60,6 @@ set bs=2  " Backspace over everything in insert mode
 set shiftwidth=4  " Tabs under smart indent
 set nocp incsearch
 set cinoptions=:0,p0,t0
-set cinwords=if,else,while,do,for,switch,case
 set formatoptions=tcqr
 set cindent
 set autoindent
@@ -76,6 +76,7 @@ set laststatus=2  " Always show status line.
 set t_Co=16
 set background=dark
 colorscheme solarized
+"colorscheme desert-warm-256
 
 " set vim indent guides plugin settings
 let g:indent_guides_auto_colors = 0
