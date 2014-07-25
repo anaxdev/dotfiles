@@ -14,6 +14,8 @@ Plugin 'scrooloose/syntastic' " syntax checker
 Plugin 'bling/vim-airline' " airplanes go zoom
 Plugin 'tpope/vim-fugitive' " git wrapper
 Plugin 'bling/vim-bufferline' " list buffers in command bar
+Plugin 'tpope/vim-surround' " surroundings
+Plugin 'AndrewRadev/splitjoin.vim' " splitjoin
 
 call vundle#end()
 filetype plugin indent on
