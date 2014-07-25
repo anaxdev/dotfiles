@@ -16,6 +16,7 @@ Plugin 'tpope/vim-fugitive' " git wrapper
 Plugin 'bling/vim-bufferline' " list buffers in command bar
 Plugin 'tpope/vim-surround' " surroundings
 Plugin 'AndrewRadev/splitjoin.vim' " splitjoin
+Plugin 'scrooloose/nerdtree' " file navigator
 
 call vundle#end()
 filetype plugin indent on
@@ -40,12 +41,8 @@ let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
 let g:airline_symbols.branch = '⎇'
 
-" alt+n or alt+p to navigate between entries in QuickFix
-map <silent> <m-p> :cp <cr>
-map <silent> <m-n> :cn <cr>
 
 syntax enable
-
 set cf  " Enable error files & error jumping.
 set history=256  " Number of things to remember in history.
 set autowrite  " Writes on make/shell commands
@@ -73,14 +70,11 @@ set encoding=utf-8
 set showmatch  " Show matching brackets.
 set mat=5  " Bracket blinking.
 set lcs=tab:\ \ ,eol:$,trail:~,extends:>,precedes:<
-set novisualbell  " No blinking .
 set noerrorbells  " No noise.
 set laststatus=2  " Always show status line.
 set t_Co=16
 set background=dark
 colorscheme solarized
-" colorscheme molokai
-" colorscheme xoria256
 
 " set vim indent guides plugin settings
 let g:indent_guides_auto_colors = 0
