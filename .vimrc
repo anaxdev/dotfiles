@@ -62,7 +62,7 @@ set nocp incsearch
 set cinoptions=:0,p0,t0
 set formatoptions=tcqr
 set cindent
-set autoindent
+"set autoindent
 set smarttab
 set expandtab
 
