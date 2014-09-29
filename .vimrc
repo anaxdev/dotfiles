@@ -1,4 +1,3 @@
-filetype on  " Automatically detect file types.
 set nocompatible  " no vi compatibility.
 
 " set the runtime path to include Vundle and initialize
@@ -19,6 +18,7 @@ Plugin 'AndrewRadev/splitjoin.vim' " splitjoin
 Plugin 'scrooloose/nerdtree' " file navigator
 Plugin 'altercation/vim-colors-solarized' " solarized colorscheme
 Plugin 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
+Plugin 'derekwyatt/vim-scala' " scala syntax highlights
 
 call vundle#end()
 filetype plugin indent on
