@@ -43,6 +43,13 @@ let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
 let g:airline_symbols.branch = '⎇'
 
+" Syntastic
+autocmd VimEnter * SyntasticToggleMode
+
+" Function Keys
+set pastetoggle=<F2>
+map <F3> :SyntasticCheck<Return>
+map <C-T> :NERDTree<Return>
 
 syntax enable
 set cf  " Enable error files & error jumping.
@@ -52,7 +59,6 @@ set ruler  " Ruler on
 set nu  " Line numbers on
 set wrap  " Line wrapping on
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
-set pastetoggle=<F2>
 set showmode
 "set paste " Enable paste from clipboard
 
