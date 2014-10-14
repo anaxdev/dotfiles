@@ -1,3 +1,4 @@
+filetype plugin indent on
 set nocompatible  " no vi compatibility.
 
 " set the runtime path to include Vundle and initialize
@@ -19,9 +20,8 @@ Plugin 'scrooloose/nerdtree' " file navigator
 Plugin 'altercation/vim-colors-solarized' " solarized colorscheme
 Plugin 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
 Plugin 'derekwyatt/vim-scala' " scala syntax highlights
-
+Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
 call vundle#end()
-filetype plugin indent on
 
 " Add recently accessed projects menu (project plugin)
 set viminfo^=\!
@@ -52,7 +52,9 @@ set ruler  " Ruler on
 set nu  " Line numbers on
 set wrap  " Line wrapping on
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
-set paste " Enable paste from clipboard
+set pastetoggle=<F2>
+set showmode
+"set paste " Enable paste from clipboard
 
 " Formatting
 set ts=4  " Tabs are 4 spaces
@@ -62,7 +64,7 @@ set nocp incsearch
 set cinoptions=:0,p0,t0
 set formatoptions=tcqr
 set cindent
-"set autoindent
+set autoindent
 set smarttab
 set expandtab
 
@@ -88,5 +90,5 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 
 " gvim specific
-set mousehide  " Hide mouse after chars typed
-set mouse=a  " Mouse in all modesc
+"set mousehide  " Hide mouse after chars typed
+"set mouse=a  " Mouse in all modesc
