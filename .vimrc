@@ -57,7 +57,8 @@ set history=256  " Number of things to remember in history.
 set autowrite  " Writes on make/shell commands
 set ruler  " Ruler on
 set nu  " Line numbers on
-set wrap  " Line wrapping on
+"set wrap  " Line wrapping on
+set nowrap " Line wrapping off
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set showmode
 "set paste " Enable paste from clipboard
