@@ -21,6 +21,7 @@ Plugin 'altercation/vim-colors-solarized' " solarized colorscheme
 Plugin 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
 Plugin 'derekwyatt/vim-scala' " scala syntax highlights
 Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
+Plugin 'tpope/vim-commentary' " commenting
 call vundle#end()
 
 " Add recently accessed projects menu (project plugin)
@@ -49,7 +50,9 @@ autocmd VimEnter * SyntasticToggleMode
 " Function Keys
 set pastetoggle=<F2>
 map <F3> :SyntasticCheck<Return>
+map <F10> :SyntasticToggleMode<Return>
 map <C-T> :NERDTree<Return>
+map <F4> gcc
 
 syntax enable
 set cf  " Enable error files & error jumping.
