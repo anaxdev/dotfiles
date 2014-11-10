@@ -49,10 +49,11 @@ autocmd VimEnter * SyntasticToggleMode
 
 " Function Keys
 set pastetoggle=<F2>
-map <F3> :SyntasticCheck<Return>
-map <F10> :SyntasticToggleMode<Return>
-map <C-T> :NERDTree<Return>
-map <F4> gcc
+nnoremap <F3> :SyntasticCheck<Return>
+nnoremap <F10> :SyntasticToggleMode<Return>
+nnoremap <silent> <C-T> :NERDTree<Return>
+nnoremap <F4> gcc
+nnoremap <silent> <F5> :%s/\s\+$//<CR>
 
 syntax enable
 set cf  " Enable error files & error jumping.
@@ -67,8 +68,8 @@ function! NumberToggle()
         set relativenumber
     endif
 endfunc
-nmap <C-N><C-N> :set invnumber<CR>
-nmap <C-M><C-M> :call NumberToggle()<CR>
+nmap <silent> <C-N><C-N> :set invnumber<CR>
+nmap <silent> <C-M><C-M> :call NumberToggle()<CR>
 
 
 
