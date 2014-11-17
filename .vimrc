@@ -22,6 +22,7 @@ Plugin 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
 Plugin 'derekwyatt/vim-scala' " scala syntax highlights
 Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
 Plugin 'tpope/vim-commentary' " commenting
+Plugin 'vim-scripts/java_getset.vim'
 call vundle#end()
 
 " Add recently accessed projects menu (project plugin)
@@ -113,3 +114,15 @@ let g:indent_guides_enable_on_vim_startup = 1
 " gvim specific
 "set mousehide  " Hide mouse after chars typed
 "set mouse=a  " Mouse in all modesc
+
+" java getter/setter generation
+let b:javagetset_getterTemplate =
+    \ "\n" .
+    \ "%modifiers% %type% %funcname%() {\n" .
+    \ "    return %varname%;\n}"
+
+
+let b:javagetset_setterTemplate =
+    \ "\n" .
+    \ "%modifiers% %type% %funcname%(%type% %varname%) {\n" .
+    \ "    this.%varname% = %varname%;\n}"
