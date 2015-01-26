@@ -121,5 +121,8 @@ if ! shopt -oq posix; then
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"
+alias love="/Applications/love.app/Contents/MacOS/love"
+
+SCALA_HOME="/usr/local/bin/scala"
 
 
