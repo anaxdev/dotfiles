@@ -1,4 +1,4 @@
-filetype plugin indent on
+filetype off
 set nocompatible  " no vi compatibility.
 
 " set the runtime path to include Vundle and initialize
@@ -24,6 +24,7 @@ Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
 Plugin 'tpope/vim-commentary' " commenting
 Plugin 'vim-scripts/java_getset.vim'
 call vundle#end()
+filetype plugin indent on
 
 " Add recently accessed projects menu (project plugin)
 set viminfo^=\!
