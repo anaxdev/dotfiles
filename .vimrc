@@ -23,7 +23,9 @@ Plugin 'derekwyatt/vim-scala' " scala syntax highlights
 Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
 Plugin 'tpope/vim-commentary' " commenting
 Plugin 'vim-scripts/java_getset.vim'
+Plugin 'mustache/vim-mustache-handlebars'
 call vundle#end()
+filetype on
 filetype plugin indent on
 
 " Add recently accessed projects menu (project plugin)
