@@ -24,6 +24,7 @@ Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
 Plugin 'tpope/vim-commentary' " commenting
 Plugin 'vim-scripts/java_getset.vim'
 Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 call vundle#end()
 filetype on
 filetype plugin indent on
