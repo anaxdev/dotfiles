@@ -125,4 +125,9 @@ alias love="/Applications/love.app/Contents/MacOS/love"
 
 SCALA_HOME="/usr/local/bin/scala"
 export PATH=/usr/local/bin:$PATH
+# Work computer only
+if [ $HOSTNAME == 'LM-SFA-00874097' ]; then
+    #export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+    source ~/.profile
+fi
 
