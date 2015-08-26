@@ -129,5 +129,7 @@ export PATH=/usr/local/bin:$PATH
 if [ $HOSTNAME == 'LM-SFA-00874097' ]; then
     #export PATH=/opt/local/bin:/opt/local/sbin:$PATH
     source ~/.profile
+    export JAVA_HOME=$(/usr/libexec/java_home)
+    export PATH=$JAVA_HOME/jre/bin:$PATH
 fi
 
