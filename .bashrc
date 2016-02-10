@@ -129,7 +129,11 @@ export PATH=/usr/local/bin:$PATH
 if [ $HOSTNAME == 'LM-SFA-00874097' ]; then
     #export PATH=/opt/local/bin:/opt/local/sbin:$PATH
     source ~/.profile
-    export JAVA_HOME=$(/usr/libexec/java_home)
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
     export PATH=$JAVA_HOME/jre/bin:$PATH
 fi
 
+GUROBI_HOME="/Library/gurobi650/mac64"
+PATH="${PATH}:${GUROBI_HOME}/bin"
+DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+GUROBI_LICENCE="/Users/dawu/gurobi.lic"
