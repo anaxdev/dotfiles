@@ -25,6 +25,7 @@ Plugin 'tpope/vim-commentary' " commenting
 Plugin 'vim-scripts/java_getset.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
+Plugin 'fatih/vim-go' "Go development plugin
 call vundle#end()
 filetype on
 filetype plugin indent on
@@ -113,6 +114,18 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=DarkGrey
 let g:indent_guides_start_level = 2 " vim indent guides size
 let g:indent_guides_guide_size = 1 " vim indent guides size
 let g:indent_guides_enable_on_vim_startup = 1
+
+" vim-go and syntastic lag fix
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
 
 
 " gvim specific
