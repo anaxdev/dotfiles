@@ -12,6 +12,11 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
+# https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+# git-prompt
+source ~/.git-prompt.sh
+source ~/.git-completion.bash
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -66,7 +71,10 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    #PS1='\u:[\w]$(__git_ps1 " (%s)")\n🐳  '
+    PS1='\u:[\w]$(__git_ps1 " (%s)")🐳  '
     ;;
 *)
     ;;
@@ -93,12 +101,49 @@ if [ $(uname) == 'Darwin' ]; then
     alias ls="ls -G"
 fi
 
+# Set CLICOLOR if you want Ansi Colors in iTerm2 
+export CLICOLOR=1
+#
+# # Set colors to match iTerm2 Terminal Colors
+export TERM=xterm-256color
+
 #vim
 alias vi="vim"
+alias vim="mvim -v"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias dirs
+alias dirs='dirs -v'
+
+# Navigation
+cd_pushd() {
+    if [ $# -eq 0 ]; then
+        DIR="${HOME}"
+    else
+        DIR="$1"
+    fi
+    builtin pushd "${DIR}" > /dev/null
+}
+
+pushd_builtin() {
+    builtin pushd > /dev/null
+}
+
+cd_popd() {
+    builtin popd > /dev/null
+}
+
+clear_dirs() {
+    builtin dirs -c > /dev/null
+}
+
+alias cd='cd_pushd'
+alias bd='cd_popd'
+alias fd='pushd_builtin'
+alias xd='clear_dirs'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -125,15 +170,159 @@ alias love="/Applications/love.app/Contents/MacOS/love"
 
 SCALA_HOME="/usr/local/bin/scala"
 export PATH=/usr/local/bin:$PATH
-# Work computer only
-if [ $HOSTNAME == 'LM-SFA-00874097' ]; then
-    #export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-    source ~/.profile
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
-    export PATH=$JAVA_HOME/jre/bin:$PATH
+
+#GUROBI_HOME="/Library/gurobi650/mac64"
+#PATH="${PATH}:${GUROBI_HOME}/bin"
+#DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+#GUROBI_LICENCE="/Users/dawu/gurobi.lic"
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
 fi
 
-GUROBI_HOME="/Library/gurobi650/mac64"
-PATH="${PATH}:${GUROBI_HOME}/bin"
-DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
-GUROBI_LICENCE="/Users/dawu/gurobi.lic"
+
+export GOPATH=$HOME/dev/go/
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+# Docker work stuff
+
+export GITHUB_TOKEN="af4a6d9ab57e11c5034e9afdb1fea75f37da657d"
+
+function rmdtr {
+    docker ps -a | grep dtr | grep -v enzi | awk '{print $1}' | xargs docker rm -f; docker volume ls | grep dtr | awk '{print $2}' | xargs docker volume rm
+}
+
+# GPG agent
+GPG_AGENT_FILE="$HOME/.gpg-agent-info"
+function start_gpg_agent {
+  gpg-agent --daemon --write-env-file $GPG_AGENT_FILE
+}
+if which gpg-agent > /dev/null; then
+  # start agent if there's no agent file
+  if [ ! -f $GPG_AGENT_FILE ]; then
+    eval $( start_gpg_agent )
+  else
+    # check agent works
+    source $GPG_AGENT_FILE
+    SOCKET=$(echo "${GPG_AGENT_INFO}"  | cut -d : -f 1)
+    # check agent connection
+    if ( ! nc -U $SOCKET < /dev/null | grep -q "OK Pleased to meet you" ); then
+      eval $( start_gpg_agent )
+    fi
+  fi
+  export GPG_TTY=$(tty)
+fi
+## AWS
+#export DOCKER_TLS_VERIFY=0
+#alias docker="docker --tlsverify=false"
+#export DOCKER_CERT_PATH=~/.docker/
+
+# Infra
+alias aws_vpn_infra='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=infra-us-east-1*" "Name=tag:role,Values=docker" "Name=tag:secondary-role,Values=vpn" "Name=instance-state-name,Values=running" --output=json'
+alias aws_saltmaster_infra='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=infra-us-east-1*" "Name=tag:role,Values=saltmaster" "Name=instance-state-name,Values=running" --output=json'
+
+# Production
+alias aws_dist_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=distribution" "Name=instance-state-name,Values=running" --output=json'
+alias aws_docker_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=docker" "Name=instance-state-name,Values=running" --output=json'
+alias aws_dtr_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=dtr" "Name=instance-state-name,Values=running" --output=json'
+alias aws_es_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=elasticsearch" "Name=instance-state-name,Values=running" --output=json'
+alias aws_es2_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=elasticsearch2" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_ext_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=external" "Name=tag:role,Values=haproxy" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_ext_reg_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=external" "Name=tag:role,Values=haproxy" "Name=tag:haproxy-group,Values=registry" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_int_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=internal" "Name=tag:role,Values=haproxy" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=haproxy" "Name=instance-state-name,Values=running" --output=json'
+alias aws_hub_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=hub" "Name=instance-state-name,Values=running" --output=json'
+alias aws_infra_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=docker" "Name=tag:secondary-role,Values=infra" "Name=instance-state-name,Values=running" --output=json'
+alias aws_nautilus_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=nautilus" "Name=instance-state-name,Values=running" --output=json'
+alias aws_nautilus_singleton_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=nautilus-singleton" "Name=instance-state-name,Values=running" --output=json'
+alias aws_nautilus_signer_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=nautilus-signer" "Name=instance-state-name,Values=running" --output=json'
+alias aws_notary_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=notary" "Name=instance-state-name,Values=running" --output=json'
+alias aws_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=instance-state-name,Values=running" --output=json'
+alias aws_prometheus_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=prometheus" "Name=instance-state-name,Values=running" --output=json'
+alias aws_store_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=store" "Name=instance-state-name,Values=running" --output=json'
+alias aws_swarm_dis_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:secondary-role,Values=swarm-discovery" "Name=instance-state-name,Values=running" --output=json'
+alias aws_s3_es_logs_prod='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=us-east-1*" "Name=tag:role,Values=docker" "Name=tag:secondary-role,Values=s3-es-logs" "Name=instance-state-name,Values=running" --output=json'
+
+# Staging
+alias aws_dist_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=distribution" "Name=instance-state-name,Values=running" --output=json'
+alias aws_docker_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=docker" "Name=instance-state-name,Values=running" --output=json'
+alias aws_dtr_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=dtr" "Name=instance-state-name,Values=running" --output=json'
+alias aws_es_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=elasticsearch" "Name=instance-state-name,Values=running" --output=json'
+alias aws_es2_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=elasticsearch2" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_ext_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=external" "Name=tag:role,Values=haproxy" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_ext_reg_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=external" "Name=tag:role,Values=haproxy" "Name=tag:haproxy-group,Values=registry" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_int_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=internal" "Name=tag:role,Values=haproxy" "Name=instance-state-name,Values=running" --output=json'
+alias aws_haproxy_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=haproxy" "Name=instance-state-name,Values=running" --output=json'
+alias aws_hub_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=hub" "Name=instance-state-name,Values=running" --output=json'
+alias aws_infra_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=docker" "Name=tag:secondary-role,Values=infra" "Name=instance-state-name,Values=running" --output=json'
+alias aws_nautilus_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=nautilus" "Name=instance-state-name,Values=running" --output=json'
+alias aws_nautilus_singleton_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=nautilus-singleton" "Name=instance-state-name,Values=running" --output=json'
+alias aws_nautilus_signer_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=nautilus-signer" "Name=instance-state-name,Values=running" --output=json'
+alias aws_notary_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=notary" "Name=instance-state-name,Values=running" --output=json'
+alias aws_prometheus_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=prometheus" "Name=instance-state-name,Values=running" --output=json'
+alias aws_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=instance-state-name,Values=running" --output=json'
+alias aws_store_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=store" "Name=instance-state-name,Values=running" --output=json'
+alias aws_swarm_dis_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:secondary-role,Values=swarm-discovery" "Name=instance-state-name,Values=running" --output=json'
+alias aws_s3_es_logs_stage='aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:stack-name,Values=stage-us-east-1*" "Name=tag:role,Values=docker" "Name=tag:secondary-role,Values=s3-es-logs" "Name=instance-state-name,Values=running" --output=json'
+
+alias aws_ip="jq -r '.Reservations[].Instances[].PrivateIpAddress'"
+
+alias fig="docker-compose"
+
+function ndocker () {
+    server=$1;
+    shift;
+    /usr/local/bin/docker --tlsverify=false --tlscacert=$HOME/.docker/ca.pem --tlscert=$HOME/.docker/cert.pem \
+        --tlskey=$HOME/.docker/nautilus-certs/nautilus-docker-key.pem \
+        -H tcp://$server:2376 $@
+}
+
+function ndocker-compose () {
+    f=$1;
+    shift;
+    server=$1;
+    shift;
+    docker-compose -f $f --skip-hostname-check --tlsverify --tlscacert=$HOME/.docker/ca.pem --tlscert=$HOME/.docker/cert.pem \
+        --tlskey=$HOME/.docker/nautilus-certs/nautilus-docker-key.pem \
+        -H tcp://$server:2376 $@
+}
+
+alias gtv='set oldLevel=$LOG_LEVEL; export LOG_LEVEL=INFO; go test `go list ./...  | grep -v vendor/` | grep -v "no test files"; export LOG_LEVEL=$oldLevel'
+
+function list_nautilus () {
+    ENVIRONMENT=$1
+    if [[ $ENVIRONMENT == "prod" ]]; then
+        IPS=$(aws_nautilus_prod | aws_ip)
+    else
+        IPS=$(aws_nautilus_stage | aws_ip)
+    fi
+    for IP in $IPS; do
+        line=$(ndocker $IP ps | grep "nautilus-scanner")
+        echo -e "$IP: \t$line"
+    done
+}
+
+function kdtr () {
+    docker ps -a | grep dtr | grep -v enzi | awk '{print $1}' | xargs docker rm -f; docker volume ls | grep dtr | awk '{print $2}' | xargs docker volume rm
+}
+
+function idtr () {
+    docker run -it --rm dtr-internal.caas.docker.io/caas/dtr install --ucp-url `docker-machine ip dtr-vm`:444 --ucp-username admin --ucp-password password --ucp-insecure-tls --dtr-external-url `docker-machine ip dtr-vm`
+}
+
+function kdtrv () {
+    docker ps -a | grep dtr | grep -v enzi | awk '{print $1}' | xargs docker rm -f; docker volume ls | grep dtr | awk '{print $2}' | xargs docker volume rm
+}
+
+function idtrv () {
+    docker run -it --rm dtr-internal.caas.docker.io/caas/dtr install --ucp-url 192.168.33.10:444 --ucp-username admin --ucp-password password --ucp-insecure-tls --dtr-external-url 192.168.33.10
+}
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+eval "$(direnv hook bash)"
+
+# android stuff
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/adb

@@ -2,31 +2,40 @@ filetype off
 set nocompatible  " no vi compatibility.
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
 
 " Let Vundle manage itself
-Plugin 'gmarik/Vundle.vim' " Vundle
-
+"Plugin 'gmarik/Vundle.vim' " Vundle
+set rtp+=/usr/local/opt/fzf
+call plug#begin('~/.vim/plugged')
 " Plugins
-Plugin 'nathanaelkane/vim-indent-guides' " vim indent guides
-Plugin 'scrooloose/syntastic' " syntax checker
-Plugin 'bling/vim-airline' " airplanes go zoom
-Plugin 'tpope/vim-fugitive' " git wrapper
-Plugin 'bling/vim-bufferline' " list buffers in command bar
-Plugin 'tpope/vim-surround' " surroundings
-Plugin 'AndrewRadev/splitjoin.vim' " splitjoin
-Plugin 'scrooloose/nerdtree' " file navigator
-Plugin 'altercation/vim-colors-solarized' " solarized colorscheme
-Plugin 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
-Plugin 'derekwyatt/vim-scala' " scala syntax highlights
-Plugin 'jelera/vim-javascript-syntax' " javascript syntax file
-Plugin 'tpope/vim-commentary' " commenting
-Plugin 'vim-scripts/java_getset.vim'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
-Plugin 'fatih/vim-go' "Go development plugin
-call vundle#end()
+Plug 'nathanaelkane/vim-indent-guides' " vim indent guides
+Plug 'scrooloose/syntastic' " syntax checker
+Plug 'vim-airline/vim-airline' " airplanes go zoom
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive' " git wrapper
+Plug 'bling/vim-bufferline' " list buffers in command bar
+Plug 'tpope/vim-surround' " surroundings
+Plug 'AndrewRadev/splitjoin.vim' " splitjoin
+Plug 'scrooloose/nerdtree' " file navigator
+Plug 'altercation/vim-colors-solarized' " solarized colorscheme
+Plug 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
+Plug 'derekwyatt/vim-scala' " scala syntax highlights
+Plug 'jelera/vim-javascript-syntax' " javascript syntax file
+Plug 'tpope/vim-commentary' " commenting
+Plug 'vim-scripts/java_getset.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
+Plug 'fatih/vim-go' "Go development plugin
+Plug 'Valloric/YouCompleteMe' "Autocomplete
+"Plug 'ctrlpvim/ctrlp' "fuzzy finder
+Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
+Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+"call vundle#end()
+
 filetype on
 filetype plugin indent on
 
@@ -40,7 +49,7 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
 " Airline Settings
-let g:airline_theme='luna'
+"let g:airline_theme='luna'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 if !exists('g:airline_symbols')
@@ -49,6 +58,7 @@ endif
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
 let g:airline_symbols.branch = '⎇'
+let g:airline_theme="dark"
 
 " Syntastic
 autocmd VimEnter * SyntasticToggleMode
@@ -61,6 +71,7 @@ nnoremap <silent> <C-T> :NERDTree<Return>
 nnoremap <F4> gcc
 nnoremap <silent> <F5> :%s/\s\+$//<CR>
 
+syntax on
 syntax enable
 set cf  " Enable error files & error jumping.
 set history=256  " Number of things to remember in history.
@@ -104,6 +115,10 @@ set noerrorbells  " No noise.
 set laststatus=2  " Always show status line.
 set t_Co=16
 set background=dark
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors = 256
+let g:solarized_termtrans = 1
 colorscheme solarized
 "colorscheme desert-warm-256
 
@@ -126,6 +141,11 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+"autocmd FileType go nmap <leader>b :GoBuild<CR>
+"autocmd FileType go nmap <leader>r :GoRun<CR>
 
 
 " gvim specific
