@@ -1,14 +1,8 @@
 filetype off
 set nocompatible  " no vi compatibility.
 
-" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
-
-" Let Vundle manage itself
-"Plugin 'gmarik/Vundle.vim' " Vundle
 set rtp+=/usr/local/opt/fzf
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 " Plugins
 Plug 'nathanaelkane/vim-indent-guides' " vim indent guides
 Plug 'scrooloose/syntastic' " syntax checker
@@ -20,21 +14,17 @@ Plug 'tpope/vim-surround' " surroundings
 Plug 'AndrewRadev/splitjoin.vim' " splitjoin
 Plug 'scrooloose/nerdtree' " file navigator
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
-Plug 'rainux/vim-desert-warm-256' " desert-warm-256 colorscheme
-Plug 'derekwyatt/vim-scala' " scala syntax highlights
-Plug 'jelera/vim-javascript-syntax' " javascript syntax file
 Plug 'tpope/vim-commentary' " commenting
 Plug 'vim-scripts/java_getset.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
-Plug 'fatih/vim-go' "Go development plugin
-Plug 'Valloric/YouCompleteMe' "Autocomplete
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
 "Plug 'ctrlpvim/ctrlp' "fuzzy finder
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
-"call vundle#end()
 
 filetype on
 filetype plugin indent on
@@ -88,7 +78,7 @@ endfunc
 nmap <silent> <C-N><C-N> :set invnumber<CR>
 nmap <silent> <C-M><C-M> :call NumberToggle()<CR>
 
-
+set nohlsearch
 
 set nowrap " Line wrapping off
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
@@ -113,12 +103,11 @@ set mat=5  " Bracket blinking.
 set lcs=tab:\ \ ,eol:$,trail:~,extends:>,precedes:<
 set noerrorbells  " No noise.
 set laststatus=2  " Always show status line.
-set t_Co=16
 set background=dark
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
-let g:solarized_termcolors = 256
-let g:solarized_termtrans = 1
+"let g:solarized_termcolors = 256
+"let g:solarized_termtrans = 1
 colorscheme solarized
 "colorscheme desert-warm-256
 
@@ -146,20 +135,3 @@ map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 "autocmd FileType go nmap <leader>b :GoBuild<CR>
 "autocmd FileType go nmap <leader>r :GoRun<CR>
-
-
-" gvim specific
-"set mousehide  " Hide mouse after chars typed
-"set mouse=a  " Mouse in all modesc
-
-" java getter/setter generation
-let b:javagetset_getterTemplate =
-    \ "\n" .
-    \ "%modifiers% %type% %funcname%() {\n" .
-    \ "    return %varname%;\n}"
-
-
-let b:javagetset_setterTemplate =
-    \ "\n" .
-    \ "%modifiers% %type% %funcname%(%type% %varname%) {\n" .
-    \ "    this.%varname% = %varname%;\n}"
