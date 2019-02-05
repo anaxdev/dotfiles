@@ -19,7 +19,7 @@ Plug 'vim-scripts/java_getset.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
 "Plug 'ctrlpvim/ctrlp' "fuzzy finder
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -125,6 +125,7 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_function_calls = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
