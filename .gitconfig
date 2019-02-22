@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = David Wu
+	email = dwu7401@gmail.com
+[core]
+    pager = less -X -F
+[url "git@github.com:"]
+	insteadOf = https://github.com/

@@ -19,6 +19,7 @@ Plug 'vim-scripts/java_getset.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
+Plug 'vim-ruby/vim-ruby'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
 "Plug 'ctrlpvim/ctrlp' "fuzzy finder
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
