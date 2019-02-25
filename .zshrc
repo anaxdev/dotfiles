@@ -102,6 +102,8 @@ alias ls="ls -G"
 alias vim="nvim"
 alias vi="nvim"
 
+source ~/.bash_completion/alacritty
+
 ### golang
 export GOPATH=$HOME/dev/go/
 export PATH="${GOPATH}bin":$PATH
