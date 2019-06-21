@@ -1,7 +1,7 @@
 filetype off
 set nocompatible  " no vi compatibility.
 
-set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
 call plug#begin('~/.local/share/nvim/plugged')
 " Plugins
 Plug 'nathanaelkane/vim-indent-guides' " vim indent guides
@@ -15,7 +15,7 @@ Plug 'AndrewRadev/splitjoin.vim' " splitjoin
 Plug 'scrooloose/nerdtree' " file navigator
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'tpope/vim-commentary' " commenting
-Plug 'vim-scripts/java_getset.vim'
+"Plug 'vim-scripts/java_getset.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
@@ -23,6 +23,8 @@ Plug 'vim-ruby/vim-ruby'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
 "Plug 'ctrlpvim/ctrlp' "fuzzy finder
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -58,9 +60,10 @@ autocmd VimEnter * SyntasticToggleMode
 set pastetoggle=<F2>
 nnoremap <F3> :SyntasticCheck<Return>
 nnoremap <F10> :SyntasticToggleMode<Return>
-nnoremap <silent> <C-T> :NERDTree<Return>
 nnoremap <F4> gcc
 nnoremap <silent> <F5> :%s/\s\+$//<CR>
+nnoremap <silent> <F6> :NERDTreeToggle<Return>
+nnoremap <silent> <F7> :NERDTreeFind<Return>
 
 syntax on
 syntax enable

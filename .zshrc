@@ -1,9 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="$HOME/.rbenv/bin:$PATH"
+#export PATH="$HOME/.rbenv/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/david/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -69,6 +69,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 plugins=(
     git
     docker
+    pass
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -102,17 +103,28 @@ alias ls="ls -G"
 alias vim="nvim"
 alias vi="nvim"
 
-source ~/.bash_completion/alacritty
-
 ### golang
 export GOPATH=$HOME/dev/go/
 export PATH="${GOPATH}bin":$PATH
+export PATH=$PATH:/usr/local/go/bin
 
 ### Ruby
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
+
+function vid () {
+  ffmpeg -ss 1.0 -t 1.0 -i $1 -filter_complex "[0:v] palettegen" palette.png
+  ffmpeg -i $1 -i palette.png -filter_complex "[0:v] fps=12:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" $2
+  rm palette.png
+}
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+# make CapsLock behave like Ctrl:
+setxkbmap -option ctrl:nocaps
+
+# make short-pressed Ctrl behave like Escape:
+xcape -e 'Control_L=Escape'
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
