@@ -22,6 +22,7 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
 Plug 'vim-ruby/vim-ruby'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
 "Plug 'ctrlpvim/ctrlp' "fuzzy finder
+Plug 'jparise/vim-graphql'
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
