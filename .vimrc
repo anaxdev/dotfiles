@@ -111,10 +111,7 @@ set laststatus=2  " Always show status line.
 set background=dark
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
-"let g:solarized_termcolors = 256
-"let g:solarized_termtrans = 1
 colorscheme solarized
-"colorscheme desert-warm-256
 
 " set vim indent guides plugin settings
 let g:indent_guides_auto_colors = 0
@@ -139,5 +136,3 @@ let g:go_fmt_command = "goimports"
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
-"autocmd FileType go nmap <leader>b :GoBuild<CR>
-"autocmd FileType go nmap <leader>r :GoRun<CR>
