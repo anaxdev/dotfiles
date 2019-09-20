@@ -122,9 +122,9 @@ function vid () {
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # make CapsLock behave like Ctrl:
-setxkbmap -option ctrl:nocaps
+#setxkbmap -option ctrl:nocaps
 
 # make short-pressed Ctrl behave like Escape:
-xcape -e 'Control_L=Escape'
+#xcape -e 'Control_L=Escape'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
