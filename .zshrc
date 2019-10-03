@@ -133,6 +133,9 @@ function vid () {
   rm palette.png
 }
 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
