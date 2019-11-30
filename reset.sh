@@ -7,7 +7,7 @@
 ########## Variables
 
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc vimrc bash_profile tmux.conf dircolors bash_logout bashrc"    # list of files/folders to symlink in homedir
+files="zshrc bashrc vimrc tmux.conf dircolors gitignore_global gitconfig"
 
 ##########
 
