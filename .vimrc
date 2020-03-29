@@ -5,17 +5,11 @@ set rtp+=~/.fzf
 call plug#begin('~/.local/share/nvim/plugged')
 " Plugins
 Plug 'nathanaelkane/vim-indent-guides' " vim indent guides
-Plug 'scrooloose/syntastic' " syntax checker
 Plug 'vim-airline/vim-airline' " airplanes go zoom
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive' " git wrapper
 Plug 'bling/vim-bufferline' " list buffers in command bar
-Plug 'tpope/vim-surround' " surroundings
-Plug 'AndrewRadev/splitjoin.vim' " splitjoin
 Plug 'scrooloose/nerdtree' " file navigator
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
-Plug 'tpope/vim-commentary' " commenting
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
 Plug 'vim-ruby/vim-ruby'
@@ -55,14 +49,8 @@ let g:airline_right_sep = '◀'
 let g:airline_symbols.branch = '⎇'
 let g:airline_theme="dark"
 
-" Syntastic
-autocmd VimEnter * SyntasticToggleMode
-
 " Function Keys
 set pastetoggle=<F2>
-nnoremap <F3> :SyntasticCheck<Return>
-nnoremap <F10> :SyntasticToggleMode<Return>
-nnoremap <F4> gcc
 nnoremap <silent> <F5> :%s/\s\+$//<CR>
 nnoremap <silent> <F6> :NERDTreeToggle<Return>
 nnoremap <silent> <F7> :NERDTreeFind<Return>
