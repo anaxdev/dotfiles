@@ -15,17 +15,18 @@ Plug 'AndrewRadev/splitjoin.vim' " splitjoin
 Plug 'scrooloose/nerdtree' " file navigator
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'tpope/vim-commentary' " commenting
-"Plug 'vim-scripts/java_getset.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
 Plug 'vim-ruby/vim-ruby'
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' } "Autocomplete
-"Plug 'ctrlpvim/ctrlp' "fuzzy finder
 Plug 'jparise/vim-graphql'
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -132,7 +133,15 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
 let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_build_tags='test integration'
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
+
+let g:LanguageClient_serverCommands = {
+       \ 'go': ['gopls'],
+       \ }
