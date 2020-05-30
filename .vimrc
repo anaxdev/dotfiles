@@ -17,6 +17,7 @@ Plug 'jparise/vim-graphql'
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'b4b4r07/vim-hcl'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -129,6 +130,9 @@ let g:go_build_tags='test integration'
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
+
+" hcl plugin config
+autocmd BufRead,BufNewFile *.hcl2 set expandtab shiftwidth=2 tabstop=2 filetype=hcl
 
 let g:LanguageClient_serverCommands = {
        \ 'go': ['gopls'],
