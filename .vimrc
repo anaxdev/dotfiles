@@ -18,12 +18,9 @@ Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'b4b4r07/vim-hcl'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 filetype on
@@ -32,16 +29,9 @@ filetype plugin indent on
 " Add recently accessed projects menu (project plugin)
 set viminfo^=\!
 
-" Minibuffer Explorer Settings
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
 " Airline Settings
 "let g:airline_theme='luna'
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -73,14 +63,14 @@ endfunc
 nmap <silent> <C-N><C-N> :set invnumber<CR>
 nmap <silent> <C-M><C-M> :call NumberToggle()<CR>
 
-set nohlsearch
+set nohlsearch " disable highlight on search
 
 set nowrap " Line wrapping off
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set showmode
 
 " Formatting
-set ts=4  " Tabs are 4 spaces
+set ts=2  " Tabs are 2 spaces
 set bs=2  " Backspace over everything in insert mode
 set shiftwidth=4  " Tabs under smart indent
 set nocp incsearch
@@ -111,9 +101,7 @@ let g:indent_guides_start_level = 2 " vim indent guides size
 let g:indent_guides_guide_size = 1 " vim indent guides size
 let g:indent_guides_enable_on_vim_startup = 1
 
-" vim-go and syntastic lag fix
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" vim-go
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -127,13 +115,26 @@ let g:go_fmt_command = "goimports"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 let g:go_build_tags='test integration'
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
 
 " hcl plugin config
 autocmd BufRead,BufNewFile *.hcl2 set expandtab shiftwidth=2 tabstop=2 filetype=hcl
 
-let g:LanguageClient_serverCommands = {
-       \ 'go': ['gopls'],
-       \ }
+" coc config - completion
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" <Tab> and <S-Tab> to navigate the completion list
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" <CR> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" auto format on completion
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
