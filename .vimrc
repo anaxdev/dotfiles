@@ -7,7 +7,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nathanaelkane/vim-indent-guides' " vim indent guides
 Plug 'vim-airline/vim-airline' " airplanes go zoom
 Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-bufferline' " list buffers in command bar
+Plug 'bling/vim-bufferline' " list buffers in airline
+Plug 'tpope/vim-fugitive' " git wrapper with airline + commands 
 Plug 'scrooloose/nerdtree' " file navigator
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
@@ -30,7 +31,7 @@ filetype plugin indent on
 set viminfo^=\!
 
 " Airline Settings
-"let g:airline_theme='luna'
+let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -126,7 +127,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-" <Tab> triggers completion and navigates to next complete item 
+" <Tab> triggers completion and navigates to next complete item
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
