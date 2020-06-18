@@ -120,21 +120,22 @@ let g:go_build_tags='test integration'
 autocmd BufRead,BufNewFile *.hcl2 set expandtab shiftwidth=2 tabstop=2 filetype=hcl
 
 " coc config - completion
-" use <tab> for trigger completion and navigate to the next complete item
+" Extensions used: coc-json coc-tsserver coc-prettier
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" <Tab> triggers completion and navigates to next complete item 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
-
-" <Tab> and <S-Tab> to navigate the completion list
+" <S-Tab> to navigate to previous complete item
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " <CR> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " auto format on completion
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" close preview window when completion is done
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
