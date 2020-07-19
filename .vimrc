@@ -71,7 +71,7 @@ set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set showmode
 
 " Formatting
-set ts=2  " Tabs are 2 spaces
+set ts=4  " Tabs are 4 spaces
 set bs=2  " Backspace over everything in insert mode
 set shiftwidth=4  " Tabs under smart indent
 set nocp incsearch
