@@ -126,6 +126,9 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+" yarn prettier
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
 
 " <Tab> triggers completion and navigates to next complete item
 inoremap <silent><expr> <Tab>
