@@ -37,6 +37,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 ### gopass
 source <(gopass completion bash)
+alias pass=gopass
 
 ### python
 # >>> conda initialize >>>
