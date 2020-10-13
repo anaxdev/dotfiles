@@ -10,3 +10,5 @@
 	insteadOf = https://github.com/
 [http]
 	cookiefile = /home/david/.gitcookies
+[credential]
+	helper = cache
