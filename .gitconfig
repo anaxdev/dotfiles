@@ -11,4 +11,4 @@
 [http]
 	cookiefile = /home/david/.gitcookies
 [credential]
-	helper = cache
+	helper = store
