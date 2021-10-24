@@ -34,6 +34,7 @@ alias vi="nvim"
 export GOPATH=$HOME/dev/go/
 export PATH="${GOPATH}bin":$PATH
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/.yarn/bin
 
 ### gopass
 source <(gopass completion bash)
@@ -65,5 +66,8 @@ function vid () {
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export MANPAGER='nvim +Man!'
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

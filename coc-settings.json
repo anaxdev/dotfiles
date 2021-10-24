@@ -1,29 +1,22 @@
 {
-  "suggest.autoTrigger": "none",
-
-  "tsserver.enable": true,
-  "tsserver.enableJavascript": true,
-  "eslint.run": "onType",
-  "eslint.autoFixOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": [
-    "markdown",
-    "css",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "json",
-    "graphql"
-  ],
-
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "usePlaceholders": true
-      }
+    "suggest.autoTrigger": "none",
+    "tsserver.enable": true,
+    "tsserver.enableJavascript": true,
+    "languageserver": {
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": [
+                "go"
+            ],
+            "initializationOptions": {
+                "usePlaceholders": true
+            }
+        }
     }
-  }
 }

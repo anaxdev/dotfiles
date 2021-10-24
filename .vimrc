@@ -15,6 +15,7 @@ Plug 'tmux-plugins/vim-tmux' "tmux.conf syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } "Go Development plugin
 Plug 'vim-ruby/vim-ruby'
 Plug 'jparise/vim-graphql'
+Plug 'tsandall/vim-rego'
 Plug 'ekalinin/Dockerfile.vim' " Dockerfile syntax highlights
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
